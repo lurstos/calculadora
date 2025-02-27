@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <!-- Este é um script de uma calculadora básica em JavaScript/CSS/HTML -->
+    <style>/* Início da estilização css */
+        * {
+            width:83%;
+        }
+        .calculadora {/* Calculadora */
+            width: 300px;
+            margin: 100px auto;
+            padding: 20px;
+            border: 1px solid #333;
+            border-radius: 10px;
+        }
+        .elementos {
+            margin:auto 3.3em;
+            
+        }
+
+        #display {/* Tela */
+            width: 72%;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 18px;
+            border: 1px solid #333;
+        }
+
+        #inferiores {/* Botões inferiores (, 0 C = +) */
+            width: 16%;
+            padding: 10px;
+            font-size: 18px;
+            margin: 2px;
+            cursor: pointer;/* Cursor muda seu formato sobre botões */
+        }
+
+        .calculadora button {/* Botões */
+            width: 20%;
+            padding: 10px;
+            font-size: 18px;
+            margin: 3px;
+            cursor: pointer;/* Cursor muda seu formato sobre botões */
+        }
+
+        .calculadora button:hover {
+            background-color: #f0f0f0;/* Botão muda de cor sob cursor */
+        }
+
+        .calculadora button.operador {/* Botões (÷ x - +) */
+            background-color: #ee9a41;
+        }
+        .calculadora button.limpar {/* Botão C */
+            background-color: #b43d2d;
+            color: #fff;
+        }
+        .calculadora button.equals {/* Botão = */
+            background-color: #4cafac;
+            color: #333;
+        }
+    </style><!-- Fim da estilização css -->
+</head>
+<body>
+    <div class="calculadora"><!-- Início da div class calculadora -->
+        <div class="elementos"><!-- Início da div class elementos -->
+        <input type="text" id="display" disabled /><!-- Tela -->
+        <!-- O evento onclick adicionado em cada botão vai chamar a função especificada 
+entre aspas, declarada mais abaixo dentro das tags <script></script>, quando o respectivo
+botão for clicado: -->
+        <div>
+            <button onclick="addNumber(7)">7</button>
+            <button onclick="addNumber(8)">8</button>
+            <button onclick="addNumber(9)">9</button>
+            <button onclick="addoperador('/')" class="operador">÷</button>
+        </div>
+        <div>
+            <button onclick="addNumber(4)">4</button>
+            <button onclick="addNumber(5)">5</button>
+            <button onclick="addNumber(6)">6</button>
+            <button onclick="addoperador('*')" class="operador">x</button>
+        </div>
+        <div>
+            <button onclick="addNumber(1)">1</button>
+            <button onclick="addNumber(2)">2</button>
+            <button onclick="addNumber(3)">3</button>
+            <button onclick="addoperador('-')" class="operador">-</button>
+        </div>
+        <div>
+            <button onclick="addNumber('.')" id="inferiores">,</button>
+            <button onclick="addNumber(0)" id="inferiores">0</button>
+            <button onclick="limparTela()" class="limpar" id="inferiores" style="padding-left:7px;">C</button>
+            <button onclick="calcular()" class="equals" id="inferiores" style="padding-left:7px;">=</button>
+            <button onclick="addoperador('+')" class="operador" id="inferiores" style="padding-left:7px;">+</button>
+        </div>
+        </div><!-- Fim da div class elementos -->
+    </div><!-- Fim da div class calculadora -->
+
+    <script>//Início do script JavaScript
+        let display = document.getElementById('display');
+        let entDados = '';
+/* Quando um número for clicado a função addNumber() vai adicioná-lo à variável 
+entDados e exibi-lo no display (tela): */
+        function addNumber(number) {
+            entDados += number;
+            display.value = entDados;
+        }
+/* Quando um operador (÷ x - +) for clicado a função addoperador() vai adicioná-lo à variável 
+entDados e exibi-lo no display (tela): */
+        function addoperador(operador) {
+            entDados += ' ' + operador + ' ';
+            display.value = entDados;
+        }
+/* Quando o botão "C" for clicado a função limparTela() vai atribuir valores vazios 
+à variável entDados e ao display e, consequentemente, vai limpar a tela: */
+        function limparTela() {
+            entDados = '';
+            display.value = '';
+        }
+/* O clique no botão "=" chamará a função calcular() que, através da função eval(), vai avaliar 
+e calcular a expressão armazenada na variável entDados e atualmente visível no display e, logo após, 
+exibir seu resultado na tela: */
+        function calcular() {
+            try {
+                entDados = eval(entDados).toString();
+                display.value = entDados;
+            } catch (e) {
+                display.value = 'Erro';
+                entDados = '';
+            }
+        }
+    </script><!-- Fim do script JavaScript -->
+    
+</body>
+</html>
